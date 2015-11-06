@@ -1,0 +1,47 @@
+group 'com.github.yamingd.argo'
+version '2.1.0'
+
+apply plugin: 'maven'
+apply plugin: 'java'
+apply plugin: 'signing'
+
+compileJava {
+    sourceCompatibility=1.8
+    targetCompatibility=1.8
+    options.encoding='UTF-8'
+}
+
+compileTestJava {
+    sourceCompatibility=1.8
+    targetCompatibility=1.8
+    options.encoding='UTF-8'
+}
+
+repositories {
+    mavenLocal()
+
+    maven { url 'http://maven.oschina.net/content/groups/public/' }
+
+    mavenCentral()
+}
+
+description = 'Annotation Processor to generate API doc by using markdown'
+
+dependencies{
+    compile 'com.github.yamingd.argo:annotations:2.1.1'
+    compile 'com.google.guava:guava:18.0'
+    compile('org.springframework:spring-context:3.2.11.RELEASE') {
+        exclude(module: 'commons-logging')
+    }
+    compile('org.springframework:spring-web:3.2.11.RELEASE') {
+        exclude(module: 'commons-logging')
+    }
+    compile 'org.hibernate:hibernate-validator:4.3.1.Final'
+}
+
+ext {
+    uploadArchive=true
+}
+
+apply from: 'jarwrap.gradle'
+apply from: 'maven_push.gradle'
